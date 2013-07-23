@@ -1,8 +1,11 @@
+import controlP5.*;
+
 ArrayList<Particle> particles = new ArrayList<Particle>();
 ArrayList<PShape> shapes = new ArrayList<PShape>();
 boolean drawing = false;
 SVGLoader svgl;
 PImage sourceImage;
+ControlP5 cp5;
 
 void setup() {
   noCursor();
@@ -12,10 +15,11 @@ void setup() {
   sourceImage = loadImage("http://img.ffffound.com/static-data/assets/6/1e6bd71919bdd56832ee20a655d30d467da2b936_m.jpg");
   sourceImage.resize(displayWidth, displayHeight);
   size(sourceImage.width, sourceImage.height);
+  cp5 = new ControlP5(this);
 }
 
 void draw() {
-  if (drawing == true && particles.size() < 300) {
+  if (drawing == true && particles.size() < 30 ) {
     PVector pos = new PVector(mouseX, mouseY);
     PVector vel = new PVector(0, 0);
     Particle p = new Particle(pos, vel, random(500,2500));
