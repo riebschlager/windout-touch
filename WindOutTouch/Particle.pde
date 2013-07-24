@@ -35,7 +35,7 @@ class Particle {
   }
 
   void draw() {  
-    canvas.fill(pixel, map(percent, 0, 1, 255, 0));
+    canvas.fill(pixel, map(percent, 0, 1, 150, 0));
     canvas.noStroke();
     shape.resetMatrix();
     shape.scale(maxScale * percent);
