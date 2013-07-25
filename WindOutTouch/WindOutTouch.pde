@@ -10,7 +10,10 @@ ControlP5 cp5;
 PGraphics canvas;
 Palettes palettes;
 color[] colors;
+String messageText;
+String mode;
 
+Button startOver, saveImage, changeColors;
 
 void setup() {
   //noCursor();
@@ -20,13 +23,45 @@ void setup() {
   sourceImage = loadImage("http://img.ffffound.com/static-data/assets/6/1e6bd71919bdd56832ee20a655d30d467da2b936_m.jpg");
   sourceImage.resize(1920, 1080);
   size(sourceImage.width, sourceImage.height);
-  cp5 = new ControlP5(this);
   canvas = createGraphics(width, height);
   canvas.beginDraw();
   canvas.background(255);
   canvas.endDraw();
+  cp5 = new ControlP5(this);
+  PFont font = loadFont("HelveticaNeue-Light-12.vlw");
+  textFont(font);
+  cp5.setFont(font);
+  cp5.setColorBackground(color(0, 200));
+  startOver = cp5.addButton("startOver").setPosition(10, 10).setSize(120, 40).setLabel("Start Over");
+  saveImage = cp5.addButton("saveImage").setPosition(10, 60).setSize(120, 40).setLabel("Save");
+  changeColors = cp5.addButton("changeColors").setPosition(10, 110).setSize(120, 40).setLabel("Change Colors");
   palettes = new Palettes();
   colors = palettes.colors.get(0);
+  messageText = "";
+}
+
+void changeColors() {
+  palettes.nextColor();
+  colors = palettes.colors.get(palettes.currentPalette);
+}
+
+void saveImage() {
+  String id = generateString(4);
+  canvas.save("/Users/criebsch/Dropbox/Public/windout/" + id + ".jpg");
+  canvas.save("data/output/" + id + ".tif");
+  messageText = "Done! Your image is at http://art.the816.com/" + id;
+  saveImage.setVisible(false);
+  changeColors.setVisible(false);
+}
+
+void startOver() {
+  saveImage.setVisible(true);
+  changeColors.setVisible(true);
+  particles.clear();
+  canvas.beginDraw();
+  canvas.background(255);
+  canvas.endDraw();
+  messageText = "";
 }
 
 void draw() {
@@ -51,11 +86,19 @@ void draw() {
     if (p.isDead) particles.remove(i);
   }
   canvas.endDraw();
-
   image(canvas, 0, 0);
-  for (int i = 0; i < colors.length; i++) {
-    fill(colors[i]);
-    rect(i * 20, 0, 20, 20);
+  if (changeColors.isVisible()) {
+    for (int i = 0; i < colors.length; i++) {
+      fill(colors[i]);
+      strokeWeight(0.1);
+      rect(i * 20 + 10, 160, 20, 20);
+    }
+  }
+  if (messageText != "") {
+    fill(#FC5833);
+    rect(140, 10, 300, 40);
+    fill(0);
+    text(messageText, 150, 35);
   }
 }
 
@@ -63,11 +106,13 @@ void keyPressed() {
   if (key == 's') {
     String id = generateString(4);
     canvas.save("/Users/criebsch/Dropbox/Public/windout/" + id + ".jpg");
+    canvas.save("data/output/" + id + ".tif");
     // TODO: also save a tif
   }
 }
 
 void mousePressed() {
+  if (cp5.isMouseOver()) return;
   drawing = true;
 }
 
