@@ -15,7 +15,7 @@ String mode;
 Button startOver, saveImage, changeColors;
 
 void setup() {
-  //noCursor();
+  noCursor();
   background(255);
   svgl = new SVGLoader();
   svgl.loadVectors(shapes, this.sketchPath + "/data/vector/", 500, "retro");
@@ -44,7 +44,8 @@ void changeColors() {
 
 void saveImage() {
   String id = generateString(4);
-  canvas.save("/Users/criebsch/Dropbox/Public/windout/" + id + ".jpg");
+  //canvas.save("/Users/criebsch/Dropbox/Public/windout/" + id + ".jpg");
+  canvas.save("C:/Users/Chris/Dropbox/Public/windout/" + id + ".jpg");
   canvas.save("data/output/" + id + ".tif");
   messageText = "Done! Your image is at http://art.the816.com/" + id;
   saveImage.setVisible(false);
