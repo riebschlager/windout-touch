@@ -1,9 +1,8 @@
 class SVGLoader {
+  
   public SVGLoader() {
   }
-  // Create an SVG with several shapes, each on its own layer.
-  // Make sure they're all crammed into the top-left of the artboard.
-
+  
   void loadVectors(ArrayList _shapeList, String _path, int _limit, String ... _folderName) {
     for (int i = 0; i < _folderName.length; i++) {
       int limit = 0;
@@ -23,5 +22,6 @@ class SVGLoader {
       }
     }
   }
+  
 }
 

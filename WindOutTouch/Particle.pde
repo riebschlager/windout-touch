@@ -10,23 +10,23 @@ class Particle {
 
   public Particle(PVector _pos, int _lifetime) {
     pos = _pos;
-    vel = new PVector(0,0);
+    vel = new PVector(0, 0);
     lifetime = _lifetime;
     age = 0;
     isDead = false;
     noiseVec = new PVector();
     initialRotation = random(-TWO_PI, TWO_PI);
     finalRotation = random(-TWO_PI, TWO_PI);
-    maxScale = random(-1, 1);
+    maxScale = random(0, 1);
   }
 
   void update() {
     percent = (float) age / (float) lifetime;
-    noiseFloat = noise(pos.x * 0.0005, pos.y * 0.0005, frameCount * 0.0005);
-    noiseVec.x = cos(((noiseFloat - 0.3) * TWO_PI) * 10);
-    noiseVec.y = sin(((noiseFloat - 0.3) * TWO_PI) * 10);
+    noiseFloat = noise(pos.x * 0.01, pos.y * 0.01);
+    noiseVec.x = cos(((noiseFloat - 0.3) * TWO_PI));
+    noiseVec.y = sin(((noiseFloat - 0.3) * TWO_PI));
     vel.add(noiseVec);
-    vel.div(3);
+    vel.div(2);
     pos.add(vel);
     age++;
     if (percent == 1f) {

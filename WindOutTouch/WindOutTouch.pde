@@ -5,7 +5,6 @@ ArrayList<Particle> particles = new ArrayList<Particle>();
 ArrayList<PShape> shapes = new ArrayList<PShape>();
 boolean drawing = false;
 SVGLoader svgl;
-PImage sourceImage;
 ControlP5 cp5;
 PGraphics canvas;
 Palettes palettes;
@@ -20,9 +19,7 @@ void setup() {
   background(255);
   svgl = new SVGLoader();
   svgl.loadVectors(shapes, this.sketchPath + "/data/vector/", 500, "retro");
-  sourceImage = loadImage("http://img.ffffound.com/static-data/assets/6/1e6bd71919bdd56832ee20a655d30d467da2b936_m.jpg");
-  sourceImage.resize(1920, 1080);
-  size(sourceImage.width, sourceImage.height);
+  size(1920,1080);
   canvas = createGraphics(width, height);
   canvas.beginDraw();
   canvas.background(255);
@@ -65,7 +62,7 @@ void startOver() {
 }
 
 void draw() {
-  if (drawing == true && particles.size() < 30) {
+  if (drawing == true && particles.size() < 100) {
     Particle p = new Particle(new PVector(mouseX, mouseY), (int) random(150, 500));
     p.shape = shapes.get((int) random(shapes.size()));
     //p.pixel = sourceImage.get((int) random(sourceImage.width), (int) random(sourceImage.height));
