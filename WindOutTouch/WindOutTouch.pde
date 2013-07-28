@@ -100,15 +100,6 @@ void draw() {
   }
 }
 
-void keyPressed() {
-  if (key == 's') {
-    String id = generateString(4);
-    canvas.save("/Users/criebsch/Dropbox/Public/windout/" + id + ".jpg");
-    canvas.save("data/output/" + id + ".tif");
-    // TODO: also save a tif
-  }
-}
-
 void mousePressed() {
   if (cp5.isMouseOver()) return;
   drawing = true;
